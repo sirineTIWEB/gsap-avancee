@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +11,11 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: Arial, sans-serif;
         }
+
         .spacer {
             height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -22,6 +25,7 @@
             color: white;
             font-size: 3rem;
         }
+
         .pinned-section {
             height: 100vh;
             background: #f8f9fa;
@@ -31,11 +35,13 @@
             justify-content: center;
             padding: 50px;
         }
+
         .pinned-section h2 {
             font-size: 3rem;
             margin-bottom: 60px;
             color: #2c3e50;
         }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -43,25 +49,29 @@
             max-width: 1200px;
             width: 100%;
         }
+
         .stat-card {
             background: white;
             padding: 40px;
             border-radius: 15px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             opacity: 0;
             transform: scale(0.8);
         }
+
         .stat-number {
             font-size: 4rem;
             font-weight: bold;
             color: #667eea;
             margin-bottom: 10px;
         }
+
         .stat-label {
             font-size: 1.2rem;
             color: #666;
         }
+
         .end-spacer {
             height: 100vh;
             background: #2c3e50;
@@ -73,6 +83,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="spacer">Scrollez vers le bas ⬇️</div>
 
@@ -105,7 +116,47 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
     <script>
-        // Votre code JavaScript ici !
+        gsap.registerPlugin(ScrollTrigger);
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.pinned-section',
+                start: 'top top',
+                end: '+=3000',           // Pin pendant 3000px
+                pin: true,               // Épingle toute la section
+                scrub: 1,                // Animation fluide liée au scroll
+                markers: true            // Debug : voir les marqueurs
+            }
+        })
+
+        tl.to('.stat-card', {
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            stagger: 0.3,                  // 0.3 entre chaque carte
+            ease: 'power2.out'
+        });
+
+        // Animation de comptage pour chaque nombre
+        const statNumbers = document.querySelectorAll('.stat-number');
+
+        statNumbers.forEach((number, index) => {
+            const target = +number.getAttribute('data-target');
+            const obj = { count: 0 };
+
+            // Ajouter l'animation à la timeline avec un délai basé sur l'index
+            tl.to(obj, {
+                count: target,
+                duration: 2,
+                ease: 'power1.out',
+                onUpdate: () => {
+                    number.textContent = Math.floor(obj.count);
+                }
+            }, index * 0.3);  // Démarre avec le même stagger que les cards
+        });        
+
+        
     </script>
 </body>
+
 </html>
