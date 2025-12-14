@@ -255,6 +255,63 @@
             }, index * 0.3);  // Démarre avec le même stagger que les cards
         });
 
+        // Animation des chapitres
+        const chapters = document.querySelectorAll('.chapter');
+
+        chapters.forEach((chapter, index) => {
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: chapter,
+                    start: 'top top',
+                    end: '+=2000',              // Pin pendant 2000px
+                    pin: true,                  // Épingle chaque chapitre
+                    scrub: 1,                   // Animation fluide liée au scroll
+                    snap: {
+                        snapTo: 1,              // Snap à la fin de l'animation
+                        duration: 0.5,          // Durée de l'animation de snap
+                        ease: 'power2.inOut'
+                    },
+                    markers: true
+                }
+            });
+
+            const bg = chapter.querySelector('.chapter-bg');
+            const title = chapter.querySelector('.chapter-text h2');
+            const text = chapter.querySelector('.chapter-text p');
+            const image = chapter.querySelector('.chapter-image');
+
+            // Animation du titre (fade + slide from left)
+            tl.fromTo(title,
+                { opacity: 0, x: -100 },
+                { opacity: 1, x: 0, duration: 1, ease: 'power2.out' }
+            );
+
+            // Animation de l'image (scale from 0)
+            tl.fromTo(image,
+                { scale: 0 },
+                { scale: 1, duration: 1, ease: 'back.out(1.7)' },
+                '-=0.5'  // Commence 0.5s avant la fin de l'animation précédente
+            );
+
+            // Animation du texte (fade + slide from right)
+            tl.fromTo(text,
+                { opacity: 0, x: 100 },
+                { opacity: 1, x: 0, duration: 1, ease: 'power2.out' },
+                '-=0.5'  // Commence 0.5s avant la fin de l'animation précédente
+            );
+
+            // Effet parallaxe sur l'image de fond
+            gsap.to(bg, {
+                y: 200,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: chapter,
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+        });
 
     </script>
 </body>
