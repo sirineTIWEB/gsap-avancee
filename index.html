@@ -81,6 +81,72 @@
             color: white;
             font-size: 2rem;
         }
+
+        .chapter {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            object-fit: cover;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .chapter-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .chapter-text h2 {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            opacity: 0;
+        }
+
+        .chapter-text p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #555;
+            opacity: 0;
+        }
+
+        .chapter-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0);
+        }
+
+        .chapter1 {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .chapter2 {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+
+        .chapter3 {
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+        }
     </style>
 </head>
 
@@ -109,7 +175,41 @@
         </div>
     </section>
 
-    <div class="end-spacer">Fin de la démo</div>
+    <section class="chapter chapter1">
+        <img src="https://picsum.photos/1920/1080?random=1" alt="BG" class="chapter-bg">
+        <div class="chapter-content">
+            <div class="chapter-text">
+                <h2>Chapitre 1 : Les Débuts</h2>
+                <p>Tout a commencé par une simple idée. Une vision d'un monde où la créativité et la technologie se
+                    rencontrent pour créer des expériences inoubliables.</p>
+            </div>
+            <img src="https://picsum.photos/600/400?random=10" alt="Chapitre 1" class="chapter-image">
+        </div>
+    </section>
+
+    <section class="chapter chapter2">
+        <img src="https://picsum.photos/1920/1080?random=2" alt="BG" class="chapter-bg">
+        <div class="chapter-content">
+            <img src="https://picsum.photos/600/400?random=20" alt="Chapitre 2" class="chapter-image">
+            <div class="chapter-text">
+                <h2>Chapitre 2 : L'Évolution</h2>
+                <p>Les années ont passé, les défis se sont multipliés. Mais à chaque obstacle, nous avons appris,
+                    grandi, et repoussé les limites de ce qui était possible.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="chapter chapter3">
+        <img src="https://picsum.photos/1920/1080?random=3" alt="BG" class="chapter-bg">
+        <div class="chapter-content">
+            <div class="chapter-text">
+                <h2>Chapitre 3 : L'Avenir</h2>
+                <p>Aujourd'hui, nous regardons vers demain avec confiance. L'histoire continue, et le meilleur reste à
+                    venir. Rejoignez-nous dans cette aventure.</p>
+            </div>
+            <img src="https://picsum.photos/600/400?random=30" alt="Chapitre 3" class="chapter-image">
+        </div>
+    </section>
 
     <!-- GSAP + ScrollTrigger -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -153,9 +253,9 @@
                     number.textContent = Math.floor(obj.count);
                 }
             }, index * 0.3);  // Démarre avec le même stagger que les cards
-        });        
+        });
 
-        
+
     </script>
 </body>
 
